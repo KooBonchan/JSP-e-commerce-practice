@@ -9,4 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>UploadProduct</display-name>
+    <servlet-name>UploadProduct</servlet-name>
+    <servlet-class>com.ecommerce.controller.UploadProduct</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadProduct</servlet-name>
+    <url-pattern>/UploadProduct</url-pattern>
+  </servlet-mapping>
 </web-app>
