@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+td.input-space{
+	width: 200px;
+}
+input {
+	width: 200px;
+	margin-right: 2px;
+}
+input#id-input{
+	width:130px;
+} 
+

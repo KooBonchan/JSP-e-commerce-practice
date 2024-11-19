@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../style/darkmode.css" />
+<link rel="stylesheet" href="./style/form.css" />
+<link rel="stylesheet" href="./style/signup.css" />
+</head>
+<body>
+	<!-- <form action="signup" method="post" name="formSignup"> -->
+	<form action="#" method="get" name="formSignup">
+		<table>
+			<thead>
+				<tr>
+					<td colspan=2>
+						<h1>signup</h1>
+					</td>
+				</tr>
+			</thead>
+			<tr>
+				<td>ID</td>
+				<td class="input-space">
+					<input name="id" autocomplete="username" id="id-input">
+					<button type="button" name="idCheck">Check ID</button>
+				</td>
+			</tr>
+			<tr>
+				<td>Password</td>
+				<td class="input-space"><input type="password" name="password"
+					autocomplete="current-password"></td>
+			</tr>
+			<tr>
+				<td>└Confirm</td>
+				<td class="input-space">
+				<input type="password" name="password-confirm">
+				</td>
+			</tr>
+			<tr>
+				<td>Name</td>
+				<td class="input-space"><input name="name" autocomplete="name"></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td class="input-space"><input type="email" name="email" autocomplete="email"></td>
+			</tr>
+			<tr>
+				<td>Phone</td>
+				<td class="input-space"><input type="text" name="phone" autocomplete="type without '-'"></td>
+			</tr>
+			<tr>
+				<td colspan=2>
+					<div id="button-bar">
+						<button type="button" name="signup">Sign up</button>
+						<button type="reset" name="reset">Reset</button>
+						<button type="button" name="back" onclick="history.back()">Back</button>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</form>
+</body>
+<script src="./js/signup.js"></script>
+</html>
