@@ -3,13 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../style/darkmode.css" />
+<link rel="stylesheet" href="./style/darkmode.css" />
 <link rel="stylesheet" href="./style/form.css" />
 <link rel="stylesheet" href="./style/signup.css" />
 </head>
 <body>
-	<!-- <form action="signup" method="post" name="formSignup"> -->
-	<form action="#" method="get" name="formSignup">
+	<form action="signup" method="post" name="formSignup">
 		<table>
 			<thead>
 				<tr>
@@ -19,6 +18,8 @@
 				</tr>
 			</thead>
 			<tr>
+			<!-- berthoud - 123qwe!@#QWE -->
+			<!-- vincengar - qwe123QWE!@# -->
 				<td>ID</td>
 				<td class="input-space">
 					<input name="id" autocomplete="username" id="id-input">
@@ -46,7 +47,7 @@
 			</tr>
 			<tr>
 				<td>Phone</td>
-				<td class="input-space"><input type="text" name="phone" autocomplete="type without '-'"></td>
+				<td class="input-space"><input type="tel" name="phone" placeholder="type without '-'" autocomplete="tel"></td>
 			</tr>
 			<tr>
 				<td colspan=2>

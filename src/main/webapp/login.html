@@ -3,18 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
-<link rel="stylesheet" href="../style/darkmode.css" />
+<link rel="stylesheet" href="./style/darkmode.css" />
 <link rel="stylesheet" href="./style/form.css" />
 </head>
 <body>
-	<!-- <form action="login" method="post" name="formLogin"> -->
-	<div id="error-invalid-credential" style="color: red; display: none;">
+	<div id="error-invalid-credentials" style="color: red; display: none;">
         Invalid credentials, please try again.
     </div>
    	<div id="error-session-end" style="color: red; display: none;">
         Session ended.
     </div>
-	<form action="#" method="get" name="formLogin">
+	<form action="login" method="post" name="formLogin">
 		<table>
 			<thead>
 				<tr>
@@ -49,11 +48,13 @@ function getQueryParameter(name) {
     return urlParams.get(name);
 }
 const error = getQueryParameter('error');
-if (error === 'invalid_credentials') {
-    document.getElementById('error-invalid_credential').style.display = 'block'; // Show the error message
-}
-else if (error === 'not_authenticated') {
-    document.getElementById('error-session-end').style.display = 'block'; // Show the error message
+if(error != null){
+	if (error == 'invalid_credentials') {
+	    document.getElementById('error-invalid-credentials').style.display = 'block'; // Show the error message
+	}
+	else if (error == 'not_authenticated') {
+	    document.getElementById('error-session-end').style.display = 'block'; // Show the error message
+	}	
 }
 
 const signupButton = document.formLogin.signup;

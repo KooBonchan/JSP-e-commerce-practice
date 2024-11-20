@@ -20,7 +20,7 @@ import com.ecommerce.dto.MemberVO;
  *
  */
 public class MemberDAO {
-	static final String salt = "Night Owl by Galimatias";
+	static final String salt = "You've been Thunderstruck";
 	DataSource dataSource;
 	{
 		dataSource = ConnectionPoolProvider.getDataSource();		
@@ -110,7 +110,7 @@ public class MemberDAO {
 	}
 	
 	public MemberVO login(String id, String password) {
-		String sql = "SELECT name FROM member WHERE id = ? and password = ?";
+		String sql = "SELECT name, is_merchant FROM member WHERE id = ? and password = ?";
 		password = sha256(password);
 		try(Connection connection = dataSource.getConnection();				
 			PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -129,6 +129,23 @@ public class MemberDAO {
 			System.err.println(e.getMessage());
 		}
 		return null;
+	}
+	
+	public boolean existsId(String id) {
+		String sql = "SELECT name FROM member WHERE id = ?";
+		try(Connection connection = dataSource.getConnection();				
+			PreparedStatement preparedStatement = connection.prepareStatement(sql)){
+			preparedStatement.setString(1,id);
+			try(ResultSet resultSet = preparedStatement.executeQuery()){
+				if( ! resultSet.next()) {
+					return false;
+				}
+			}
+		} catch (SQLException e) {
+			System.err.println(sql);
+			System.err.println(e.getMessage());
+		}
+		return true;
 	}
 	
 	public static String sha256(String source) {

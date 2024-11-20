@@ -4,7 +4,7 @@ const ID_REGEX = /^[A-Za-z][A-Za-z0-9]{3,}$/;
 const PASSWORD_REGEX = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()_+={}|\[\]:;"'<>,.?/\\~`-]).{8,}$/;
 const PHONE_REGEX = /^0\d{8,11}$/;
 
-let idConfirmed = false;	
+let idConfirmed = false;
 
 function raiseError(input, message){
 	alert(message);
@@ -42,9 +42,7 @@ form.idCheck.addEventListener("click", function(e) {
 		return;
 	}
 	if(id){
-		alert("Debug: ID Double Check");
-		return;
-		/*fetch('./id-check?id='+ encodeURIComponent(id))
+		fetch('./id-check?id='+ encodeURIComponent(id))
 		.then(response => response.json())
 		.then(data => {
 			if(data.exists){
@@ -57,7 +55,7 @@ form.idCheck.addEventListener("click", function(e) {
 		})
 		.catch(error => {
 			alert('Error checking ID. Please try again.');
-		})*/
+		})
 	} else {
 		alert('Fill ID first');
 	}

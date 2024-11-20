@@ -28,11 +28,32 @@ public class ReviewDAO {
 		dataSource = ConnectionPoolProvider.getDataSource();
 	}
 	
+	public boolean createReview(int prodId, ReviewVO reviewVO){
+		String sql = "INSERT INTO review "
+				+ "(mem_id, prod_id, content) "
+				+ "values"
+				+ "(?, ?, ?)";
+		try(Connection connection = dataSource.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql))
+		{
+			preparedStatement.setString(1, reviewVO.getWriter());
+			preparedStatement.setInt(2, prodId);
+			preparedStatement.setString(3, reviewVO.getContent());
+			int result = preparedStatement.executeUpdate();
+			return result > 0;
+		} catch (SQLException e) {
+			System.err.println(sql);
+			System.err.println(e.getMessage());
+		}
+		return false;
+	}
+	
 	public List<ReviewVO> readReviewBlock(int prod_id, int block){
 		String sql = "select "
 				+ "mem_id, content, write_time "
 				+ "from product_view "
 				+ "where prod_id = ? "
+				+ "order by write_time desc "
 				+ "limit ? offset ? ";
 		try(Connection connection = dataSource.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(sql))

@@ -83,4 +83,4 @@ product p
 INNER JOIN MEMBER m
 ON m.id = p.merchant_id;
 
-DESC product_view ;
+SELECT * FROM MEMBER;

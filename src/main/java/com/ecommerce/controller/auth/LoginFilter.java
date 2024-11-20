@@ -14,10 +14,11 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @WebFilter(urlPatterns = {
+		"/bundle-page-with-directory/except-login-signup",
 		"/home",
-		"/testProtected",
+		"/product*",
 	}) //auth protected pages
-public class AuthenticationFilter implements Filter {
+public class LoginFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -27,8 +28,13 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse httpResponse = (HttpServletResponse) response;
 
         HttpSession session = httpRequest.getSession(false);
-        if (session == null || session.getAttribute("userId") == null) {
+        if (session == null || session.getAttribute("username") == null) {
             httpResponse.sendRedirect("login.html?error=not_authenticated");
+            return;
+        }
+        String logout = httpRequest.getParameter("logout");
+        if(logout != null && logout.equals("true")) {
+        	httpResponse.sendRedirect("login.html");
             return;
         }
         chain.doFilter(request, response);
