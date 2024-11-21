@@ -20,9 +20,9 @@
 | --- | --- |
 | See Product List | Sort by time by default |
 | Add to Cart | |
-| Buy | |
+| Buy | mock -- delay, empty cart, modify products, go home |
 | Write review | Login Mandatory |
-| See my review list | Login Mandatory |
+| See my review list | Login Mandatory -- not implememt 20241121 |
 
 ### Seller
 
@@ -31,9 +31,16 @@
 | **All buyer functions** | |
 | See Product List | Sort by time by default |
 | Register new product | |  
-| See my products | |
+| See my products |  |
 | Edit my products | expect mainly inventory update |
 
 ## Diagrams
 
-![Usecase Diagram](./assets/readme/cartoon.png)
+![Usecase Diagram](/requirement/usecase.jpg)
+![Entity Diagram](/requirement/entity.png)
+
+## Challenges
+* Applying partial AJAX + REST
+  * Applied REST to review system
+  * Harmed consistency of controller implementation -- low readability.
+* Passing VO, 
