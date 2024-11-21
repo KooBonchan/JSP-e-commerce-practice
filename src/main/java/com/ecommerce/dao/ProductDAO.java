@@ -29,7 +29,7 @@ public class ProductDAO {
 		dataSource = ConnectionPoolProvider.getDataSource();
 	}
 	
-	public boolean CreateProduct(ProductVO productVO, String merchantId) {
+	public boolean createProduct(ProductVO productVO, String merchantId) {
 		// TODO
 		String sql = "";
 				
@@ -62,7 +62,7 @@ public class ProductDAO {
 				List<ProductVO> products = new ArrayList<>(PAGE_SIZE);
 				while(resultSet.next()) {
 					ProductVO productVO = new ProductVO();
-					productVO.setProvider(resultSet.getString("provider"));
+					productVO.setProviderName(resultSet.getString("provider"));
 					productVO.setId(resultSet.getInt("id"));
 					productVO.setName(resultSet.getString("name"));
 					productVO.setPrice(resultSet.getInt("price"));
@@ -93,9 +93,9 @@ public class ProductDAO {
 			{
 				if(resultSet.next()) {
 					ProductVO productVO = new ProductVO();
-					productVO.setProvider(resultSet.getString("provider"));
+					productVO.setProviderName(resultSet.getString("provider"));
 					productVO.setName(resultSet.getString("name"));
-					productVO.setPrice(resultSet.getInt("price"));
+					productVO.setPrice(resultSet.getInt("price")); 
 					productVO.setDescription(resultSet.getString("description"));
 					productVO.setImagePath(resultSet.getString("img_path"));
 					productVO.setInventory(resultSet.getInt("inventory"));

@@ -14,12 +14,16 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
+import com.ecommerce.dao.ProductDAO;
+import com.ecommerce.dto.ProductVO;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Part;
 
 /**
@@ -33,34 +37,45 @@ import jakarta.servlet.http.Part;
 public class UploadProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    ProductDAO productDAO;
+    {
+    	productDAO = new ProductDAO();
+    }
     	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
-		
-		try {
-			Part filePart = request.getPart("image");
-			if(filePart != null) {
-				String extension = ".jpg"; // get from image
-				String fileName = UUID.randomUUID().toString() + extension;
-				InputStream fileContent = filePart.getInputStream();
-				Path uploadDir = Path.of("uploads");
-				if(!Files.exists(uploadDir)) {
-					Files.createDirectories(uploadDir);
-				}
-				Path uploadPath = Paths.get(uploadDir + fileName);
-				Files.copy(fileContent, uploadPath, StandardCopyOption.REPLACE_EXISTING);
-				
-				generateThumbnail(uploadPath.toFile(), fileName);
-				
-				//TODO: save fileName to MySQL
+		Part filePart = request.getPart("image");
+		String fileName = null;
+		if(filePart != null) {
+			String extension = ".jpg"; // get from image
+			fileName = UUID.randomUUID().toString() + extension;
+			InputStream fileContent = filePart.getInputStream();
+			Path uploadDir = Path.of("uploads");
+			if(!Files.exists(uploadDir)) {
+				Files.createDirectories(uploadDir);
 			}
-		}catch (Exception e) {
-			// TODO: handle exception
+			Path uploadPath = Paths.get(uploadDir + fileName);
+			Files.copy(fileContent, uploadPath, StandardCopyOption.REPLACE_EXISTING);
+			generateThumbnail(uploadPath.toFile(), fileName);
+		}
+		try {
+			String name = request.getParameter("name");
+			int price = Integer.parseInt(request.getParameter("price"));
+			String description = request.getParameter("description");
+			ProductVO product = new ProductVO();
+			product.setName(name);
+			if(fileName != null) product.setImagePath(fileName);
+			product.setPrice(price);
+			product.setDescription(description);
+			
+			HttpSession session = request.getSession(false);
+			String providerId = (String)session.getAttribute("id");
+			
+			productDAO.createProduct(product, providerId);
+		} catch (RuntimeException e) {
+			System.err.println("upload error: " + e.getMessage());
 		}
 	}
 	

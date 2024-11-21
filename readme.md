@@ -12,6 +12,7 @@
 | Rank Up | Server Manager manually update user rank to Merchant |
 | | if rank up, email and phone comes mandatory |
 | | Not-implement, I'll just assume that a merchant may contact via contact email |
+| Redirect | If user has no permission to page, redirect to fallback page |
 
 ### Buyer
 

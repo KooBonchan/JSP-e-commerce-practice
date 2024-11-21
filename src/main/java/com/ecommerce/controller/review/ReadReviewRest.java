@@ -22,7 +22,7 @@ public class ReadReviewRest extends HttpServlet {
 		reviewDAO = new ReviewDAO();
 	}
     
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("application/json; charset=utf-8");

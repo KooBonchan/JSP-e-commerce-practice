@@ -18,16 +18,16 @@
 	</header>
 	<%
 	String imagePath = product.getImagePath();
-	if(imagePath == null) imagePath = "noimage.gif";
+	if(imagePath == null) imagePath = "thumbnail/placeholder.jpg";
 	%>
-	<h1><%=product.getName() %></h1>
+	<h1><span style="cursor:pointer;" onclick="history.back()"> <- </span><%=product.getName() %></h1>
 	<div class="image">
-		<img src="upload/<%=imagePath %>">
+		<img src="uploads/<%=imagePath %>">
 	</div>
 	<div id="price-info">
 		<span id="count-select">1개: </span> <span id="price"><%=product.getPrice() %></span>
 	</div>
-	<div id="provider"><%=product.getProvider() %></div>
+	<div id="provider"><%=product.getProviderName() %></div>
 	<div id="description"><%=product.getDescription() %></div>
 	<div>
 		<div class="new-review">
@@ -39,15 +39,9 @@
 		</div>
 		<!-- Somehow async using ajax -->
 		<ul id="review-block">
-			<li>
-			<div class="review">
-				<span class="id">id</span>
-				<span class="star">*****</span>
-				<span class="content">content</span>
-			</div>
-			</li>
+			<li>No reviews yet. Would you leave my first comment?</li>
 		</ul>
 	</div>
 </body>
-<script src="./js/product-view.js"></script>
+<script src="/product/js/product-view.js"></script>
 </html>

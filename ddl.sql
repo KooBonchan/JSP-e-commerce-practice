@@ -28,11 +28,11 @@ CREATE TABLE product(
 );
 
 CREATE TABLE review(
-  prod_id int NOT null,
+  id int PRIMARY KEY AUTO_INCREMENT,
+  prod_id int NOT NULL,
   mem_id varchar(12) NOT NULL,
   content varchar(200) NOT NULL,
-  write_time timestamp NOT NULL DEFAULT current_timestamp,
-  PRIMARY KEY (prod_id, mem_id)
+  write_time timestamp NOT NULL DEFAULT current_timestamp
 );
 
 INSERT INTO MEMBER
@@ -53,9 +53,9 @@ VALUES
 INSERT INTO product
 (merchant_id, name, price, img_path, description, inventory)
 VALUES
-('synthaxe', 'Zendrum', 1020304, '/test/test0.jpg', 'Synth Drum', 23),
-('synthaxe', 'Synth Axe', 2030405, '/test/test1.jpg', 'Synth Axe', 16),
-('vwooten', 'Palmystery', 23232, '/test/test2.jpg', 'Album', 1719);
+('synthaxe', 'Zendrum', 1020304, 'test0.jpg', 'Synth Drum', 23),
+('synthaxe', 'Synth Axe', 2030405, 'test1.jpg', 'Synth Axe', 16),
+('vwooten', 'Palmystery', 23232, 'test2.jpg', 'Album', 1719);
 
 INSERT INTO review
 (prod_id, mem_id, content)
@@ -84,3 +84,4 @@ INNER JOIN MEMBER m
 ON m.id = p.merchant_id;
 
 SELECT * FROM MEMBER;
+SELECT * FROM review;

@@ -7,9 +7,14 @@ window.onload = function(){
     })
 }
 
+const params = new URLSearchParams(window.location.search);
+const prodId = params.get('id');
+
 function loadReviews() {
-    fetch('read-review')
-    .then(response => response.json())
+	fetch('read-review-block?prodId=' + prodId)
+    .then(response => {
+		console.log("load started");
+		return response.json();})
     .then(data => {
         let reviewsHTML = '';
         data.forEach(review => {
@@ -30,9 +35,10 @@ function loadReviews() {
 }
 
 function writeReview() {
+	const reviewArea = document.getElementById('write-content')
     const reviewData = {
-        prodId: document.getElementById('prod-id').value,
-        content: document.getElementById('write-content').value,
+        prodId: prodId,
+        content: reviewArea.value,
     }
 
     fetch('upload-review', {
@@ -42,10 +48,11 @@ function writeReview() {
         },
         body: JSON.stringify(reviewData),
     })
-    .then(response => response.json())
-    .then(data => {
-        loadReviews();
-    }).catch(error => {
+    .then(ignored => loadReviews())
+    .then(ignored=>{
+		reviewArea.value = '';
+	})
+    .catch(error => {
         console.error('error uploading review: ', error);
     })
 }

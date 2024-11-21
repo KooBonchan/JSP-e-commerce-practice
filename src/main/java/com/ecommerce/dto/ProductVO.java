@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter @Setter
 public class ProductVO {
 	int id;
-	String provider;
+	String providerName;
 	String name;
 	int price;
 	String description;

@@ -16,7 +16,8 @@ import jakarta.servlet.http.HttpSession;
 @WebFilter(urlPatterns = {
 		"/bundle-page-with-directory/except-login-signup",
 		"/home",
-		"/product*",
+		"/product",
+		"/product/*"
 	}) //auth protected pages
 public class LoginFilter implements Filter {
 

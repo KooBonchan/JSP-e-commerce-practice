@@ -16,10 +16,6 @@ import javax.sql.DataSource;
 import com.ecommerce.dto.ReviewVO;
 
 
-/**
- * @author 04-14
- *
- */
 public class ReviewDAO {
 	static int BLOCK_SIZE = 10;
 	
@@ -51,7 +47,7 @@ public class ReviewDAO {
 	public List<ReviewVO> readReviewBlock(int prod_id, int block){
 		String sql = "select "
 				+ "mem_id, content, write_time "
-				+ "from product_view "
+				+ "from review "
 				+ "where prod_id = ? "
 				+ "order by write_time desc "
 				+ "limit ? offset ? ";
@@ -65,7 +61,7 @@ public class ReviewDAO {
 			try(ResultSet resultSet = preparedStatement.executeQuery()){
 				List<ReviewVO> reviews = new ArrayList<>(BLOCK_SIZE);
 				while(resultSet.next()) {
-					String writer = resultSet.getString("writer");
+					String writer = resultSet.getString("mem_id");
 					String content = resultSet.getString("content");
 					Timestamp writeTime = resultSet.getTimestamp("write_time");
 					ReviewVO vo = new ReviewVO();
