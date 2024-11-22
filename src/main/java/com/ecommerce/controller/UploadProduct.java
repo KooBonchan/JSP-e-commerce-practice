@@ -33,7 +33,7 @@ import jakarta.servlet.http.Part;
 	fileSizeThreshold = 1024 * 1024,
 	maxFileSize = 5 * 1024 * 1024,
 	maxRequestSize = 50 * 1024 * 1024)
-@WebServlet("/upload-product")
+@WebServlet("/product/create")
 public class UploadProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -41,32 +41,26 @@ public class UploadProduct extends HttpServlet {
     {
     	productDAO = new ProductDAO();
     }
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	response.sendRedirect("/home");
+    }
     	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
 		Part filePart = request.getPart("image");
-		String fileName = null;
+		String filename = null;
 		if(filePart != null) {
-			String extension = ".jpg"; // get from image
-			fileName = UUID.randomUUID().toString() + extension;
-			InputStream fileContent = filePart.getInputStream();
-			Path uploadDir = Path.of("uploads");
-			if(!Files.exists(uploadDir)) {
-				Files.createDirectories(uploadDir);
-			}
-			Path uploadPath = Paths.get(uploadDir + fileName);
-			Files.copy(fileContent, uploadPath, StandardCopyOption.REPLACE_EXISTING);
-			generateThumbnail(uploadPath.toFile(), fileName);
+			filename = processFile(filePart);
 		}
+		
 		try {
 			String name = request.getParameter("name");
 			int price = Integer.parseInt(request.getParameter("price"));
 			String description = request.getParameter("description");
 			ProductVO product = new ProductVO();
 			product.setName(name);
-			if(fileName != null) product.setImagePath(fileName);
+			if(filename != null) product.setImagePath(filename);
 			product.setPrice(price);
 			product.setDescription(description);
 			
@@ -77,6 +71,20 @@ public class UploadProduct extends HttpServlet {
 		} catch (RuntimeException e) {
 			System.err.println("upload error: " + e.getMessage());
 		}
+	}
+	
+	private String processFile(Part filePart) throws IOException {
+		String extension = ".jpg"; // get from image
+		String filename = UUID.randomUUID().toString() + extension;
+		InputStream fileContent = filePart.getInputStream();
+		Path uploadDir = Path.of("uploads");
+		if(!Files.exists(uploadDir)) {
+			Files.createDirectories(uploadDir);
+		}
+		Path uploadPath = Paths.get(uploadDir + filename);
+		Files.copy(fileContent, uploadPath, StandardCopyOption.REPLACE_EXISTING);
+		generateThumbnail(uploadPath.toFile(), filename);
+		return filename;
 	}
 	
 	private void generateThumbnail(File originalImage, String filename) throws IOException {

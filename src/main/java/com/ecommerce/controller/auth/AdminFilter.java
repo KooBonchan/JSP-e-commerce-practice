@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpSession;
 
 @WebFilter(urlPatterns = {
 		"/take-care-each-page/manually",
+		"/product/create",
 	}) //auth protected pages
 public class AdminFilter implements Filter {
 

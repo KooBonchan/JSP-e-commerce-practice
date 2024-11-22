@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>New Product</h1>
-	<form action="#" method="post" name="formNewProduct">
+	<form action="create" method="post" name="formNewProduct" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td><label for="product-name">Product name</label></td>
