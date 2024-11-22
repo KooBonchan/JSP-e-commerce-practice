@@ -20,6 +20,13 @@ public class Login extends HttpServlet {
         memberDAO= new MemberDAO();
     }
     
+    @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		var dispatcher = request.getRequestDispatcher("/login.html");
+		dispatcher.forward(request, response);
+	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO
 		request.setCharacterEncoding("utf-8");
@@ -31,10 +38,10 @@ public class Login extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("id", id);
 			session.setAttribute("username", member.getName());
-			session.setAttribute("permission", member.isMerchant());
-			response.sendRedirect("home");
+			session.setAttribute("permission", Boolean.valueOf(member.isMerchant()));
+			response.sendRedirect("/home");
 		} else {
-			response.sendRedirect("login.html?error=invalid_credentials");
+			response.sendRedirect("/login.html?error=invalid_credentials");
 		}
 		
 	}

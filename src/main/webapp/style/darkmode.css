@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-html {
-	background-color: #333;
-	color:#fff;
+html, body {
+	background-color: #333 ;
+	color:#fff ;
 }

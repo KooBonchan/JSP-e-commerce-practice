@@ -38,8 +38,10 @@ CREATE TABLE review(
 INSERT INTO MEMBER
 (id, password, name, email, phone, join_date, is_merchant)
 VALUES
-('synthaxe', 'futureman1q!Q', 'Drumitar Inventor', 'futureman@fleck.tones', '01020304050', str_to_date('20230405','%Y%m%d'), 1),
-('vwooten', 'uchng!09OP', 'Victor Wooten', 'victor@woot.en', '0803350020', str_to_date('20240506','%Y%m%d'), 1);
+('vwooten', '0511c30e1a4601c4b6676608c33ef51b801b661b7af034b2decdddcac1d34c6f', 'Victor Wooten', 'victor@woot.en', '0803350020', str_to_date('20240506','%Y%m%d'), 1),
+('synthaxe', '2e2a826cf524f9a6c40534245f3db92933de66d4c22061c1f5c787fd204c97b8', 'Drumitar Inventor', 'futureman@fleck.tones', '01020304050', str_to_date('20230405','%Y%m%d'), 1),
+('berthoud', '8ed0751a64e9db53a957c4191ee5a9cd9a0dbc685f63711bf598d766d5e9d814', 'Charles Berthoud', 'basscamp@you.tube', '06212345678', str_to_date('20240506','%Y%m%d'), 1);
+
 
 INSERT INTO MEMBER
 (id, password, name)
@@ -84,4 +86,3 @@ INNER JOIN MEMBER m
 ON m.id = p.merchant_id;
 
 SELECT * FROM MEMBER;
-SELECT * FROM review;

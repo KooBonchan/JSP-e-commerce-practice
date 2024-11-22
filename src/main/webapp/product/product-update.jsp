@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +18,7 @@
 			</tr>
 			<tr>
 				<td><label for="price">Price</label></td>
-				<td><input name="price" type="number" placeholder="10,000">￦</td>
+				<td><input name="price" type="number" placeholder="10,000">ï¿¦</td>
 			</tr>
 			
 			<tr id="thumbnail-container" style="display:none">

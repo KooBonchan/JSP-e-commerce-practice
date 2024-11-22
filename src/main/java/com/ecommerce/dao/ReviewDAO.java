@@ -51,6 +51,7 @@ public class ReviewDAO {
 				+ "where prod_id = ? "
 				+ "order by write_time desc "
 				+ "limit ? offset ? ";
+		List<ReviewVO> reviews = new ArrayList<>(BLOCK_SIZE);
 		try(Connection connection = dataSource.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(sql))
 		{
@@ -59,7 +60,7 @@ public class ReviewDAO {
 			preparedStatement.setInt(2, BLOCK_SIZE);
 			preparedStatement.setInt(3, offset);
 			try(ResultSet resultSet = preparedStatement.executeQuery()){
-				List<ReviewVO> reviews = new ArrayList<>(BLOCK_SIZE);
+				
 				while(resultSet.next()) {
 					String writer = resultSet.getString("mem_id");
 					String content = resultSet.getString("content");
@@ -71,12 +72,11 @@ public class ReviewDAO {
 					
 					reviews.add(vo);
 				}
-				if(reviews.size() > 0) { return reviews; }
 			}
 		} catch (SQLException e) {
 			System.err.println(sql);
 			System.err.println(e.getMessage());
 		}
-		return null;
+		return reviews;
 	}
 }

@@ -67,7 +67,7 @@ public class ProductDAO {
 					productVO.setName(resultSet.getString("name"));
 					productVO.setPrice(resultSet.getInt("price"));
 					productVO.setDescription(resultSet.getString("description"));
-					productVO.setImagePath(resultSet.getString("img_path"));
+					productVO.setImageFullPath(resultSet.getString("img_path"));
 					productVO.setInventory(resultSet.getInt("inventory"));
 					products.add(productVO);
 				}
@@ -78,6 +78,39 @@ public class ProductDAO {
 			System.err.println(e.getMessage());
 		}
 		return null;
+	}
+	
+	public List<ProductVO> readMyProducts(String provider){
+		String sql = "select "
+				+ "prod_id, name, price, description, img_path, inventory "
+				+ "from product "
+				+ "where merchant_id = ?";
+		List<ProductVO> products = new ArrayList<>(PAGE_SIZE);
+		try(Connection connection = dataSource.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql))
+		{
+			preparedStatement.setString(1, provider);
+			try(ResultSet resultSet = preparedStatement.executeQuery())
+			{
+				
+				while(resultSet.next()) {
+					ProductVO productVO = new ProductVO();
+					productVO.setProviderName(provider);
+					productVO.setId(resultSet.getInt("prod_id"));
+					productVO.setName(resultSet.getString("name"));
+					productVO.setPrice(resultSet.getInt("price"));
+					productVO.setDescription(resultSet.getString("description"));
+					productVO.setImageFullPath(resultSet.getString("img_path"));
+					productVO.setInventory(resultSet.getInt("inventory"));
+					products.add(productVO);
+				}
+				
+			}
+		} catch (SQLException e) {
+			System.err.println(sql);
+			System.err.println(e.getMessage());
+		}
+		return products;
 	}
 	
 	public ProductVO readProduct(int id){
@@ -97,7 +130,7 @@ public class ProductDAO {
 					productVO.setName(resultSet.getString("name"));
 					productVO.setPrice(resultSet.getInt("price")); 
 					productVO.setDescription(resultSet.getString("description"));
-					productVO.setImagePath(resultSet.getString("img_path"));
+					productVO.setImageFullPath(resultSet.getString("img_path"));
 					productVO.setInventory(resultSet.getInt("inventory"));
 					return productVO;
 				}

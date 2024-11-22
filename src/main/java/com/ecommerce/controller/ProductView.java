@@ -11,8 +11,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/product/item")
-public class Product extends HttpServlet {
+@WebServlet("/product")
+public class ProductView extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ProductDAO productDAO;
     {
@@ -36,11 +36,11 @@ public class Product extends HttpServlet {
 		var product = productDAO.readProduct(id);
 		if(product != null) {
 			request.setAttribute("product", product);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("product-view.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/product/product-view.jsp");
 			dispatcher.forward(request, response);
 		} else {
 			response.getWriter().print("No such Item. redirecting to home");
-			response.addHeader("Refresh", "1;url='../home'");
+			response.addHeader("Refresh", "1;url=home");
 		}
 
 	}

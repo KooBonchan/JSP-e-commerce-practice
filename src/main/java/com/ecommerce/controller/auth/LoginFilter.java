@@ -30,12 +30,13 @@ public class LoginFilter implements Filter {
 
         HttpSession session = httpRequest.getSession(false);
         if (session == null || session.getAttribute("username") == null) {
-            httpResponse.sendRedirect("login.html?error=not_authenticated");
+            httpResponse.sendRedirect("/login.html?error=not_authenticated");
             return;
         }
         String logout = httpRequest.getParameter("logout");
         if(logout != null && logout.equals("true")) {
-        	httpResponse.sendRedirect("login.html");
+        	session.invalidate();
+        	httpResponse.sendRedirect("/login.html");
             return;
         }
         chain.doFilter(request, response);

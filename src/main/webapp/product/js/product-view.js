@@ -4,17 +4,25 @@ window.onload = function(){
     .addEventListener('click', e=>{
         e.preventDefault();
         writeReview();
-    })
+    });
+    document.getElementById('cart-submit-button')
+    .addEventListener('click', e=>{
+		e.preventDefault();
+		addToCart();
+	})
 }
 
 const params = new URLSearchParams(window.location.search);
 const prodId = params.get('id');
+const cart = document.getElementById('cart');
+const count = document.getElementById('prod-count');
 
+
+const placeholder = "<li>No reviews yet. Would you leave my first comment?</li>";
 function loadReviews() {
+	
 	fetch('read-review-block?prodId=' + prodId)
-    .then(response => {
-		console.log("load started");
-		return response.json();})
+    .then(response => response.json())
     .then(data => {
         let reviewsHTML = '';
         data.forEach(review => {
@@ -27,6 +35,7 @@ function loadReviews() {
                 </li>
             `;
         });
+        if(reviewsHTML.length == 0) reviewsHTML = placeholder;
         document.getElementById('review-block').innerHTML = reviewsHTML;
     })
     .catch(error => {
@@ -36,6 +45,7 @@ function loadReviews() {
 
 function writeReview() {
 	const reviewArea = document.getElementById('write-content')
+	if(reviewArea.value.trim().length == 0) return;
     const reviewData = {
         prodId: prodId,
         content: reviewArea.value,
@@ -55,4 +65,40 @@ function writeReview() {
     .catch(error => {
         console.error('error uploading review: ', error);
     })
+}
+
+function addToCart(){
+	if(count.value == 0) return;
+    const item = {
+        prodId: prodId,
+        count: count.value,
+    }
+    fetch('add-to-cart', {
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json',
+		},
+		body: JSON.stringify(item),
+	})
+	.then(response=>response.json())
+	.then(data=>{
+		if(data.success == 'true'){
+			alert("Successfully added to Cart");
+			count.value=0;
+			
+			updateCart();
+		} else {
+			alert("Failed to add to Cart. Try again later.");
+		}
+	})
+	.catch(e=>console.log(item, e))
+}
+
+function updateCart(){
+	fetch('/cart-count')
+	.then(response => response.json())
+	.then(data => {
+		document.getElementById('cart').innerHTML = data.count;
+	})
+	.catch(e=>console.log(e))
 }

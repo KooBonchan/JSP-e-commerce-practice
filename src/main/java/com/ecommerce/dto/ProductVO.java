@@ -12,13 +12,17 @@ import lombok.Setter;
  */
 @Getter @Setter
 public class ProductVO {
+	static final String PATH = "uploads/";
 	int id;
-	String providerName;
-	String name;
-	int price;
-	String description;
-	int inventory;
+	private String providerName;
+	private String name;
+	private int price;
+	private String description;
+	private int inventory;
+	private String imagePath;
 	
-	String imagePath;
+	public void setImageFullPath(String filename) {
+		imagePath = PATH + filename;
+	}
 	
 }

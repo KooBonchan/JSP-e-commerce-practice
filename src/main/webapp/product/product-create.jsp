@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,9 +8,8 @@
 <link rel="stylesheet" href="../style/darkmode.css">
 </head>
 <body>
-
 	<h1>New Product</h1>
-	<form action="#">
+	<form action="#" method="post" name="formNewProduct">
 		<table>
 			<tr>
 				<td><label for="product-name">Product name</label></td>
@@ -20,7 +21,7 @@
 			</tr>
 			<tr>
 				<td><label for="quantity">Quantity</label></td>
-				<td><input name="quantity" type="number" placeholder="231">(단위)개</td>
+				<td><input name="quantity" type="number" placeholder="231">개</td>
 			</tr>
 			<tr id="thumbnail-container" style="display:none">
 				<td colspan=2>
@@ -42,4 +43,8 @@
 		<button type="reset">reset</button>
 	</form>
 </body>
+<script>
+const form = document.formNewProduct;
+
+</script>
 </html>

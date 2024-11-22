@@ -1,4 +1,4 @@
-package com.ecommerce.controller.review;
+package com.ecommerce.controller.rest;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet("/read-review-block")
+@WebServlet("/product/read-review-block")
 public class ReadReviewRest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ReviewDAO reviewDAO;

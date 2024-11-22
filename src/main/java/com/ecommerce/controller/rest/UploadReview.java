@@ -1,4 +1,4 @@
-package com.ecommerce.controller.review;
+package com.ecommerce.controller.rest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet("/upload-review")
+@WebServlet("/product/upload-review")
 public class UploadReview extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ReviewDAO reviewDAO;
