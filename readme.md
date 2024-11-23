@@ -43,4 +43,10 @@
 * Applying partial AJAX + REST
   * Applied REST to review system
   * Harmed consistency of controller implementation -- low readability.
-* Passing VO, 
+
+## Remaining Features
+* Profile with image.
+  * separate folder for profile and image
+* Consider using S3 / Base64 encoding for image
+* Product Paging for home screen
+* Frontend not so reactive
