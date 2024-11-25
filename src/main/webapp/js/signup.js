@@ -35,7 +35,7 @@ function validate(){
 	
 	return true;
 }
-form.idCheck.addEventListener("click", function(e) {
+document.getElementById('id-check').addEventListener("click", function(e) {
 	const id = form.id.value;
 	if( ! ID_REGEX.test(id)){
 		raiseError(form.id, 'ID should be longer than 3 characters, should only contain alphabet or number, starts with alphabet');
@@ -60,11 +60,12 @@ form.idCheck.addEventListener("click", function(e) {
 		alert('Fill ID first');
 	}
 })
-form.signup.addEventListener("click", function(e) {
+form['signup-button'].addEventListener("click", function(e) {
 	if(validate()){
 		form.submit();
 	}
 })
+
 form.id.addEventListener("change", function(e){
 	idConfirmed = false;
 })

@@ -42,6 +42,7 @@ header {
     flex-direction: row;
     justify-content: space-between;
     max-width:1000px;
+    margin-top:10px;
 }
 .logo{
     color: var(--lightest);

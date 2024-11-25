@@ -1,46 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Login</title>
-<link rel="stylesheet" href="./style/darkmode.css" />
-<link rel="stylesheet" href="./style/form.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to FretBeat</title>
+    <link rel="stylesheet" href="style/theme.css">
+    <link rel="stylesheet" href="style/auth.css">
 </head>
+
 <body>
-	<div id="error-invalid-credentials" style="color: red; display: none;">
+	<form action="login" method="post" name="formLogin">
+		<div class="input-container">
+		
+	        <div class="logo">FretBeat</div>
+	        <input name="id" autocomplete="username" placeholder="ID">
+	        <input type="password" name="password" autocomplete="current-password" placeholder="Password">
+	        <div id="submit-button" class="button">Log In</div>
+	        <div id="signup-button" class="button">Sign up</div>
+    	</div>
+    </form>
+    <div id="error-invalid-credentials" style="color: red; display: none;">
         Invalid credentials, please try again.
     </div>
-   	<div id="error-session-end" style="color: red; display: none;">
+    <div id="error-session-end" style="color: red; display: none;">
         Session ended.
     </div>
-	<form action="login" method="post" name="formLogin">
-		<table>
-			<thead>
-				<tr>
-					<td colspan=2>
-						<h1>Login</h1>
-					</td>
-				</tr>
-			</thead>
-			<tr>
-				<td>ID</td>
-				<td><input name="id" autocomplete="username"></td>
-			</tr>
-			<tr>
-				<td>Password</td>
-				<td><input type="password" name="password"
-					autocomplete="current-password"></td>
-			</tr>
-			<tr>
-				<td colspan=2>
-					<div id="button-bar">
-						<button type="submit" name="submit">Log In</button>
-						<button type="button" name="signup">Sign up</button>
-					</div>
-				</td>
-			</tr>
-		</table>
-	</form>
 </body>
 <script>
 function getQueryParameter(name) {
@@ -57,9 +41,23 @@ if(error != null){
 	}	
 }
 
-const signupButton = document.formLogin.signup;
+const signupButton = document.getElementById("signup-button");
 signupButton.addEventListener("click", function(e) {
 	location.href = "signup.html";
 })
+document.getElementById("submit-button").addEventListener("click", function(e) {
+	const form = document.formLogin;
+	if(form.id.value.length == 0){
+		alert("Write your ID");
+		form.id.focus();
+		return;
+	}
+	if(form.password.value.length == 0){
+		alert("Write your Password");
+		form.password.focus();
+		return;
+	}
+	form.submit();
+});
 </script>
 </html>

@@ -6,61 +6,46 @@
 <c:set var="username" scope="page" value="${sessionScope.username }"></c:set>
 <c:set var="permission" scope="page" value="${sessionScope.permission }"></c:set>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Home</title>
-<link rel="stylesheet" href="./style/home.css">
-<link rel="stylesheet" href="./style/bootstrap.css">
-<link rel="stylesheet" href="./style/darkmode.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FretBeat: Your first percussive experience</title>
+    <link rel="stylesheet" href="style/theme.css">
 </head>
+
 <body>
 	<header>
-		<!-- 공유? -->
-		<h3>Hello, ${username}</h3>
-		<div class="button-bar" style="margin-bottom:10px;">
-			<c:if test="${permission}">
-				<a class="add-product btn btn-success" href="product/product-create.jsp">add product</a>
-				<a class="btn btn-success"
-					href="${param.my=='true'?'home'       :'home?my=true'}">
-						  ${param.my=='true'?'Home(admin)':'My Products(admin)'}
-				</a>
-			</c:if>
-			
-			<a href="#" class="btn btn-success" id="buy-cart" onclick="buyAll()">
-				Buy All (<span id="cart">${fn:length(cart)}</span>)
-			</a>
-			<a class="btn" href="home?logout=true" id="logout">logout</a>
-		</div>
-	</header>
-	<section>
-		<div id="products" class="row list-group">
-			<c:forEach  var="product" items="${products}">
-				<div class="item col-xs-4 col-lg-4 list-group-item" onclick="open_product(${product.id })">
-					<div class="thumbnail">
-						<img src="${product.imagePath }">
-					</div>
-					<div class="row">
-						<div class="caption">
-							<div class="group inner list-group-item-heading">${product.name }</div>
-							<p class="group inner list-group-item-text">${product.description }</p>
-						</div>
-						<div class="list-group-item-block">
-							<p class="lead">
-								<fmt:formatNumber value="${product.price }" type="currency"
-									currencySymbol="￦" groupingUsed="true" maxFractionDigits="0"></fmt:formatNumber>
-							</p>
-								<c:if test="${permission && param.my=='true'}">
-									<p class="inventory">${product.inventory}</p>
-									<a class="add-product btn btn-secondary" href="product/product-update.jsp">Update</a>
-									<a class="add-product btn btn-danger" href="#">Delete</a>
-								</c:if>
-						</div>
-					</div>
-				</div>
-			</c:forEach>
+        <div class="logo">FretBeat</div>
+        <div class="button-bar">
+        	<c:if test="${permission}">
+            	<div class="button">My Products (Admin)</div>
+            </c:if>
+            <div class="button" id="buy-cart" onclick="buyAll()">Buy my cart (<span id="cart">${fn:length(cart)}</span>)</div>
+            <div class="profile">
+                <div class="username">${username}</div>
+                <div class="logout"><a href="home?logout=true">Logout</a></div>
+            </div>
+            
+        </div>
+    </header>
 
-		</div>
+	<section>
+		<div class="card-container">
+		<c:forEach  var="product" items="${products}">
+            <figure class="product-card"><img src="${product.imagePath}" alt="No Image" />
+                <figcaption>
+                    <h3>${product.name }</h3>
+                    <p>${product.description}</p>
+                    <div class="price">
+                        <fmt:formatNumber value="${product.price }" type="currency"
+									currencySymbol="￦" groupingUsed="true" maxFractionDigits="0">
+						</fmt:formatNumber>
+                    </div>
+                </figcaption><a href="#"></a>
+            </figure>
+        </c:forEach>
+        </div>
 	</section>
 </body>
 <script>
