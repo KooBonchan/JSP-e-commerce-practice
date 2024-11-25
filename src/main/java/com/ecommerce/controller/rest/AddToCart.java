@@ -7,9 +7,6 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-import com.ecommerce.dao.ReviewDAO;
-import com.ecommerce.dto.ReviewVO;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;

@@ -1,4 +1,4 @@
-package com.ecommerce.controller;
+package com.ecommerce.controller.product;
 
 import java.io.IOException;
 
@@ -40,7 +40,7 @@ public class ProductView extends HttpServlet {
 			dispatcher.forward(request, response);
 		} else {
 			response.getWriter().print("No such Item. redirecting to home");
-			response.addHeader("Refresh", "1;url=home");
+			response.addHeader("Refresh", "1;url=/home");
 		}
 
 	}

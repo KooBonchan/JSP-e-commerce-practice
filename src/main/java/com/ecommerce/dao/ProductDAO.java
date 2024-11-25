@@ -30,13 +30,19 @@ public class ProductDAO {
 	}
 	
 	public boolean createProduct(ProductVO productVO, String merchantId) {
-		// TODO
-		String sql = "";
-				
+		String sql = "INSERT INTO product "
+				+ "(merchant_id, name, price, img_path, description, inventory) "
+				+ "values"
+				+ "(?, ?, ?, ?, ?, ?)";
 		try(Connection connection = dataSource.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(sql))
 		{
-			
+			preparedStatement.setString(1, merchantId);
+			preparedStatement.setString(2, productVO.getName());
+			preparedStatement.setInt(3, productVO.getPrice());
+			preparedStatement.setString(4, productVO.getImagePath());
+			preparedStatement.setString(5, productVO.getDescription());
+			preparedStatement.setInt(6, productVO.getInventory());
 			int result = preparedStatement.executeUpdate();
 			return result > 0;
 		} catch (SQLException e) {
@@ -67,7 +73,7 @@ public class ProductDAO {
 					productVO.setName(resultSet.getString("name"));
 					productVO.setPrice(resultSet.getInt("price"));
 					productVO.setDescription(resultSet.getString("description"));
-					productVO.setImageFullPath(resultSet.getString("img_path"));
+					productVO.setImageThumbnailPath(resultSet.getString("img_path"));
 					productVO.setInventory(resultSet.getInt("inventory"));
 					products.add(productVO);
 				}
@@ -100,7 +106,7 @@ public class ProductDAO {
 					productVO.setName(resultSet.getString("name"));
 					productVO.setPrice(resultSet.getInt("price"));
 					productVO.setDescription(resultSet.getString("description"));
-					productVO.setImageFullPath(resultSet.getString("img_path"));
+					productVO.setImageThumbnailPath(resultSet.getString("img_path"));
 					productVO.setInventory(resultSet.getInt("inventory"));
 					products.add(productVO);
 				}
@@ -140,5 +146,39 @@ public class ProductDAO {
 			System.err.println(e.getMessage());
 		}
 		return null;
+	}
+	
+	public boolean updateProduct(ProductVO productVO, String merchantId) {
+		String sql = "UPDATE product SET "
+				+ "name = ?, "
+				+ "price = ?, "
+				+ "description = ?, "
+				+ "inventory = ?"
+				+ (productVO.getImagePath() == null ? "" : ", img_path = ?")
+				+ " WHERE merchant_id = ? and prod_id = ? ";
+		
+		try(Connection connection = dataSource.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(sql))
+		{
+			int index = 1;
+			preparedStatement.setString(index++, productVO.getName());
+			preparedStatement.setInt(index++, productVO.getPrice());
+			preparedStatement.setString(index++, productVO.getDescription());
+			preparedStatement.setInt(index++, productVO.getInventory());
+			
+			if(productVO.getImagePath() != null) {
+				preparedStatement.setString(index++, productVO.getImagePath());
+			}
+			preparedStatement.setString(index++, merchantId);
+			preparedStatement.setInt(index++, productVO.getId());
+			
+			int result = preparedStatement.executeUpdate();
+			
+			return result > 0;
+		} catch (SQLException e) {
+			System.err.println(sql);
+			System.err.println(e.getMessage());
+		}
+		return false;
 	}
 }

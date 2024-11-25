@@ -19,7 +19,7 @@ CREATE TABLE product(
   merchant_id varchar(12) NOT NULL,
   name varchar(30) NOT NULL,
   price int NOT NULL,
-  img_path varchar(20),
+  img_path char(40), -- uuid
   description varchar(2000),
   inventory int NOT NULL DEFAULT 0,
   
@@ -55,9 +55,9 @@ VALUES
 INSERT INTO product
 (merchant_id, name, price, img_path, description, inventory)
 VALUES
-('synthaxe', 'Zendrum', 1020304, 'test0.jpg', 'Synth Drum', 23),
-('synthaxe', 'Synth Axe', 2030405, 'test1.jpg', 'Synth Axe', 16),
-('vwooten', 'Palmystery', 23232, 'test2.jpg', 'Album', 1719);
+('synthaxe', 'Zendrum', 1020304, 'test0.jpg', 'Percussive Synthesizer device with 24 triggers, made to be worn with a strap like a guitar;', 23),
+('synthaxe', 'Synth Axe', 2030405, 'test1.jpg', 'Futureman modified it into a Drumitar.', 16),
+('vwooten', 'Palmystery', 23232, 'test2.jpg', 'Victor Wooten gives you "The Lesson", you''ll get dominated by the groove', 1719);
 
 INSERT INTO review
 (prod_id, mem_id, content)
@@ -86,3 +86,4 @@ INNER JOIN MEMBER m
 ON m.id = p.merchant_id;
 
 SELECT * FROM MEMBER;
+SELECT * FROM product;

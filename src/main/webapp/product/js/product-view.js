@@ -21,7 +21,7 @@ const count = document.getElementById('prod-count');
 const placeholder = "<li>No reviews yet. Would you leave my first comment?</li>";
 function loadReviews() {
 	
-	fetch('read-review-block?prodId=' + prodId)
+	fetch('/product/read-review-block?prodId=' + prodId)
     .then(response => response.json())
     .then(data => {
         let reviewsHTML = '';
@@ -51,7 +51,7 @@ function writeReview() {
         content: reviewArea.value,
     }
 
-    fetch('upload-review', {
+    fetch('/product/upload-review', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ function addToCart(){
         prodId: prodId,
         count: count.value,
     }
-    fetch('add-to-cart', {
+    fetch('/product/add-to-cart', {
 		method: 'POST',
 		headers: {
 			'Content-type': 'application/json',
@@ -95,7 +95,7 @@ function addToCart(){
 }
 
 function updateCart(){
-	fetch('/cart-count')
+	fetch('/product/cart-count')
 	.then(response => response.json())
 	.then(data => {
 		document.getElementById('cart').innerHTML = data.count;

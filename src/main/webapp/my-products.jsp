@@ -18,10 +18,7 @@
 	<header>
         <div class="logo">FretBeat</div>
         <div class="button-bar">
-        	<c:if test="${permission}">
-            	<div class="button" onclick="location.href='my-products'">My Products (Admin)</div>
-            </c:if>
-            <div class="button" id="buy-cart" onclick="buyAll()">Buy my cart (<span id="cart">${fn:length(cart)}</span>)</div>
+        	<div class="button" onclick="location.href='home'">home</div>
             <div class="profile">
                 <div class="username">${username}</div>
                 <div class="logout"><a href="home?logout=true">Logout</a></div>
@@ -32,64 +29,31 @@
 
 	<section>
 		<div class="card-container">
+		<figure class="product-card empty">
+            <figcaption>
+            <div class="add-new">
+            <div style="font-size:100px;">+</div>
+            <div>Add New Item</div>
+            </div>
+            </figcaption>
+            <a href="product/product-create.jsp"></a>
+		</figure>
+        
 		<c:forEach  var="product" items="${products}">
             <figure class="product-card"><img src="${product.imagePath}" alt="No Image" />
                 <figcaption>
                     <h3>${product.name }</h3>
-                    <p>${product.description}</p>
+                    <p>Stock Left: ${product.inventory}</p>
                     <div class="price">
                         <fmt:formatNumber value="${product.price }" type="currency"
 									currencySymbol="￦" groupingUsed="true" maxFractionDigits="0">
 						</fmt:formatNumber>
                     </div>
-                </figcaption><a href="#" onclick="open_product(${product.id })"></a>
+                    <div class="button" onclick="location.href='product/update?id=${product.id}'">Edit your item</div>
+                </figcaption>
             </figure>
         </c:forEach>
         </div>
 	</section>
 </body>
-<script>
-const cart = document.getElementById('cart');
-
-window.onload = pageLoadHandler;
-document.addEventListener("visibilitychange", function(){
-	if (document.visibilityState === "visible") {
-		pageLoadHandler()
-    }
-});
-
-
-function pageLoadHandler(){
-	//currently single function, though leave space for future expandability
-	updateCart();
-}
-function open_product(id){
-	location.href = "./product?id=" + id;
-}
-function updateCart(){
-	fetch('/cart-count')
-	.then(response => response.json())
-	.then(data => {
-		document.getElementById('cart').innerHTML = data.count;
-	})
-	.catch(e=>console.log(e))
-}
-function buyAll(){
-	if(cart.value == 0){
-		return;
-	}
-	later(1000)
-	.then(next_url=>"/buy-cart")
-	.then(fetch)
-	.then(ignored=>updateCart())
-	.then(ignored=>alert("Payment is done successfully.\nI bought it for you.")); 
-}
-
-function later(delay) {
-    return new Promise(function(resolve) {
-    	setTimeout(() => resolve(), delay);
-    });
-}
-
-</script>
 </html>

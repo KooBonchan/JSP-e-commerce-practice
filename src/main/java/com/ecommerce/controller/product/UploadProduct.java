@@ -1,4 +1,4 @@
-package com.ecommerce.controller;
+package com.ecommerce.controller.product;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -14,6 +14,7 @@ import java.util.UUID;
 
 import javax.imageio.ImageIO;
 
+import com.ecommerce.controller.util.FilesUtil;
 import com.ecommerce.dao.ProductDAO;
 import com.ecommerce.dto.ProductVO;
 
@@ -29,14 +30,14 @@ import jakarta.servlet.http.Part;
 /**
  * Servlet implementation class UploadProduct
  */
-@MultipartConfig(location = "/temp",
+@MultipartConfig(location = "c:\\temp",
 	fileSizeThreshold = 1024 * 1024,
 	maxFileSize = 5 * 1024 * 1024,
 	maxRequestSize = 50 * 1024 * 1024)
 @WebServlet("/product/create")
 public class UploadProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	   
     ProductDAO productDAO;
     {
     	productDAO = new ProductDAO();
@@ -51,57 +52,30 @@ public class UploadProduct extends HttpServlet {
 		Part filePart = request.getPart("image");
 		String filename = null;
 		if(filePart != null) {
-			filename = processFile(filePart);
+			String imageDirectory = getServletContext().getRealPath("/uploads");
+			filename = FilesUtil.processFile(filePart, imageDirectory);
+			
 		}
 		
 		try {
-			String name = request.getParameter("name");
+			String name = request.getParameter("product-name");
 			int price = Integer.parseInt(request.getParameter("price"));
 			String description = request.getParameter("description");
+			int inventory = Integer.parseInt(request.getParameter("inventory"));
 			ProductVO product = new ProductVO();
 			product.setName(name);
 			if(filename != null) product.setImagePath(filename);
 			product.setPrice(price);
 			product.setDescription(description);
+			product.setInventory(inventory);
 			
 			HttpSession session = request.getSession(false);
 			String providerId = (String)session.getAttribute("id");
 			
 			productDAO.createProduct(product, providerId);
+			response.sendRedirect("/my-products");
 		} catch (RuntimeException e) {
 			System.err.println("upload error: " + e.getMessage());
 		}
-	}
-	
-	private String processFile(Part filePart) throws IOException {
-		String extension = ".jpg"; // get from image
-		String filename = UUID.randomUUID().toString() + extension;
-		InputStream fileContent = filePart.getInputStream();
-		Path uploadDir = Path.of("uploads");
-		if(!Files.exists(uploadDir)) {
-			Files.createDirectories(uploadDir);
-		}
-		Path uploadPath = Paths.get(uploadDir + filename);
-		Files.copy(fileContent, uploadPath, StandardCopyOption.REPLACE_EXISTING);
-		generateThumbnail(uploadPath.toFile(), filename);
-		return filename;
-	}
-	
-	private void generateThumbnail(File originalImage, String filename) throws IOException {
-		BufferedImage original = ImageIO.read(originalImage);
-		int width = 150;
-		int height= 150;
-		BufferedImage thumbnail = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-		Graphics2D g = thumbnail.createGraphics();
-		g.drawImage(original.getScaledInstance(width, height, Image.SCALE_SMOOTH), 0, 0, null);
-		g.dispose();
-		
-		File thumbnailDir = new File("uploads", "thumbnail");
-		if(!thumbnailDir.exists()) {
-			thumbnailDir.mkdirs();
-		}
-		
-		File thumbnailFile = new File(thumbnailDir, filename);
-		ImageIO.write(thumbnail, "jpg", thumbnailFile);
 	}
 }

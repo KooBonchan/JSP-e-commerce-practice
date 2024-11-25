@@ -26,13 +26,15 @@
 a {
     text-decoration: none;
     color: inherit;
+    display:block;
 }
 body {
-    background-image: linear-gradient(0, #000 0%, #000 50%, var(--darkest) 100%);
+    background-image: linear-gradient(0, #000 0%, #000 65%, var(--body-background) 100%);
     background-attachment:fixed;
     background-repeat:no-repeat;
     background-color:#000;
     font-family: Geist Mono, 'Courier New', Courier, monospace;
+    color: var(--lightest);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-width:400px;
@@ -117,6 +119,7 @@ header {
     overflow: hidden;
     margin: 10px;
     width: 300px;
+    height: 500px;
     background: var(--lightest);
     text-align: left;
     color: var(--darkest);
@@ -135,6 +138,7 @@ header {
 }
 .product-card img {
     width:300px;
+    height:300px;
     vertical-align: top;
     position: relative;
 }
@@ -169,4 +173,20 @@ header {
     bottom: 0;
     left: 0;
     right: 0;
+}
+
+.product-card.empty{
+	background-color: var(--middle);
+	color: #fff;
+	text-align: center;
+}
+.product-card.empty figcaption{
+	height: 100%;
+}
+.product-card.empty .add-new{
+	height: 100%;
+	display:flex;
+	flex-direction:column;
+	justify-content:center;
+	font-size: 25px;
 }

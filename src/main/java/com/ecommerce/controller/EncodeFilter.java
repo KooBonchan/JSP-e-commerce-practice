@@ -9,9 +9,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 @WebFilter(urlPatterns = {"/*"}) //auth protected pages
 public class EncodeFilter implements Filter {
@@ -21,7 +18,6 @@ public class EncodeFilter implements Filter {
             throws IOException, ServletException {
         
         request.setCharacterEncoding("utf-8");
-        response.setCharacterEncoding("utf-8");
 		chain.doFilter(request, response);
     }
 }

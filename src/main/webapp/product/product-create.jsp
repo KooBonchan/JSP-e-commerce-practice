@@ -4,12 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Register new product</title>
 <link rel="stylesheet" href="../style/darkmode.css">
 </head>
 <body>
 	<h1>New Product</h1>
-	<form action="create" method="post" name="formNewProduct" enctype="multipart/form-data">
+	<form action="create" method="post" name="formNewProduct" enctype="multipart/form-data"
+		onsubmit="return validate(this);">
 		<table>
 			<tr>
 				<td><label for="product-name">Product name</label></td>
@@ -20,8 +21,8 @@
 				<td><input name="price" type="number" placeholder="10,000">￦</td>
 			</tr>
 			<tr>
-				<td><label for="quantity">Quantity</label></td>
-				<td><input name="quantity" type="number" placeholder="231">개</td>
+				<td><label for="inventory">Quantity</label></td>
+				<td><input name="inventory" type="number" placeholder="231">개</td>
 			</tr>
 			<tr id="thumbnail-container" style="display:none">
 				<td colspan=2>
@@ -39,12 +40,14 @@
 				</td>
 			</tr>
 		</table>
-		<button type="button" name="submit-button">submit</button>
+		<button type="submit">submit</button>
 		<button type="reset">reset</button>
 	</form>
 </body>
 <script>
 const form = document.formNewProduct;
-
+function validate(form){
+	return true;
+}
 </script>
 </html>

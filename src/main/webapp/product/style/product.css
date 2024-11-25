@@ -1,0 +1,73 @@
+html{
+	background-color: #333;
+	color: #fff;
+	min-width: 550px;
+}
+body>* {
+	width: 550px;
+}
+
+header {
+	font-size: 20px;
+	margin-top:10px;
+	align-items:center;
+}
+#back-button{
+	font-size: 30px;
+}
+
+.product-container>*{
+	margin-top:7px;
+	text-align:center;
+}
+#provider, #description {
+	font-size: 16px;
+	color: var(--middle);
+}
+#add-to-cart-container{
+	display: flex;
+	flex-direction:row;
+	justify-content: center;
+}
+#add-to-cart-container>*{
+	width: 200px;
+	margin-right:0;
+	margin-left:20px;
+}
+#add-to-cart-container input{
+	font-size: 25px;
+	padding: 2px;
+	width: 100px;
+	background-color: #000;
+	color: var(--lightest);
+	margin: 0;
+	border: 1px solid var(--lightest);
+}
+
+.review-container{
+	margin-top:30px;
+	padding-bottom:100px;
+	text-align:center;
+}
+.new-review{
+	display:grid;
+	grid-template-columns: 1fr 3fr 1fr;
+	margin-bottom:10px;
+}
+.new-review textarea{
+	width: 100%;
+	height: 100%;
+}
+.review{
+	margin-top:20px;
+	margin-bottom:10px;
+	display:grid;
+	grid-template-columns: 1fr 4fr;
+}
+.review .writer{
+	color: var(--middle);
+}
+.review .content{
+	text-align: left;
+	width: 100%;
+}

@@ -39,7 +39,6 @@ public class Home extends HttpServlet {
 		
 		List<ProductVO> products = null;
 		String myProducts = request.getParameter("my");
-		boolean defaultFallback = true;
 		if(myProducts != null && myProducts.equals("true")) {
 			HttpSession session = request.getSession(false);
 			if(session != null && (Boolean) session.getAttribute("permission")) {
