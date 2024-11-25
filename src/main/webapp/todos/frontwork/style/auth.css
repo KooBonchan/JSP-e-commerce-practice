@@ -1,0 +1,51 @@
+.input-container {
+    width:400px;
+    margin-top:20px;
+}
+.input-container>*{
+    margin: 7px auto 0
+}
+
+.input-container .logo{
+    text-align: center;
+    margin-bottom:20px;
+}
+
+.input-container input{
+    font-family: Geist Mono, 'Courier New', Courier, monospace;
+    display: block;
+    width: 400px;
+    height: auto;
+    border: 2px solid rgba(255,255,255,0.1);
+    outline:none;
+    box-shadow: none;
+    border-radius: 0px;
+    padding: 10px;
+    font-size: 1.6em;
+    width: 100%;
+    background-color: transparent;
+    color: var(--lightest);
+}
+.input-container>input:last-of-type{
+    margin-bottom:20px;
+}
+.input-container .button{
+    width:250px;
+    text-align: center;
+}
+
+.input-with-button-wrapper{
+    display:flex;
+    flex-direction: row;
+    flex-wrap:wrap-reverse;
+    justify-content: space-between;
+    align-items: center;
+}
+.input-with-button-wrapper input{
+    width:250px;
+    margin:0;
+}
+.input-with-button-wrapper .button{
+    width:130px;
+    height:auto;
+}

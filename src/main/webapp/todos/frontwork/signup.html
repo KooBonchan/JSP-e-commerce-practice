@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to FretBeat</title>
+    <link rel="stylesheet" href="style/theme.css">
+    <link rel="stylesheet" href="style/auth.css">
+</head>
+
+<body>
+    <div class="input-container">
+        <div class="logo">FretBeat</div>
+        <div class="input-with-button-wrapper">
+            <!-- berthoud - 123qwe!@#QWE -->
+            <!-- vincengar - qwe123QWE!@# -->
+            <input name="id" autocomplete="username" id="id-input" placeholder="ID">
+            <div class="button" id="id-check">Check ID</div>
+        </div>
+        <input type="password" name="password" autocomplete="current-password" placeholder="Password">
+        <input type="password" name="password-confirm" autocomplete="current-password" placeholder="Repeat Password">
+        <input name="name" autocomplete="name" placeholder="Name">
+        <input type="email" name="email" autocomplete="email" placeholder="Email">
+        <input type="tel" name="phone" autocomplete="tel" placeholder="Phone (No hypen '-')">
+
+        <div id="signup-button" class="button">Sign Up</div>
+        <div id="reset-button" class="button button-second">Reset</div>
+        <div id="back-button" class="button button-second" onclick="history.back()">Back</div>
+    </div>
+</body>
+
+</html>

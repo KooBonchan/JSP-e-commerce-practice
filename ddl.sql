@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS MEMBER;
 
 CREATE TABLE `member` (
   `id` varchar(12) NOT NULL,
-  `password` varchar(64) NOT NULL,
+  `password` char(64) NOT NULL, -- sha 256 encrypted
   `name` varchar(20) NOT NULL,
   `email` varchar(30) DEFAULT NULL,
   `phone` char(11) DEFAULT NULL,
