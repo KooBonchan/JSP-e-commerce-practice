@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="fn" uri="jakarta.tags.functions"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Register new product</title>
-<link rel="stylesheet" href="../style/darkmode.css">
+<title>Update your product</title>
+<link rel="stylesheet" href="/style/theme.css">
+<link rel="stylesheet" href="/product/style/product-submit.css">
 </head>
 <body>
-	<h1>New Product</h1>
+	<header><h1>Product Update</h1></header>
 	<form action="update" method="post" name="formNewProduct" enctype="multipart/form-data"
 		onsubmit="return validate(this);">
 		<input type="hidden" name="id" value="${param.id}">		
@@ -41,12 +44,15 @@
 			</tr>
 			<tr>
 				<td><label for="description">description</label></td>
-				<td><textarea rows="10" cols="40" name="description">"${product.description}"</textarea>
+				<td>
+					<textarea rows="10" cols="40" name="description">${fn:trim(product.description)}</textarea>
 				</td>
 			</tr>
 		</table>
-		<button type="submit">submit</button>
-		<button type="reset">reset</button>
+		<div class="button-bar">
+		<button type="submit" class="button">submit</button>
+		<button type="reset" class="button">reset</button>
+		</div>
 	</form>
 </body>
 <script>

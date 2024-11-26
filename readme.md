@@ -40,13 +40,20 @@
 ![Entity Diagram](/requirement/entity.png)
 
 ## Challenges
+
 * Applying partial AJAX + REST
   * Applied REST to review system
   * Harmed consistency of controller implementation -- low readability.
+  * consider using /api/ uri prefix for distinguishing REST from normal paging
 
 ## Remaining Features
+
 * Profile with image.
   * separate folder for profile and image
-* Consider using S3 / Base64 encoding for image
+* Consider using S3 / Base64-encoding for image
 * Product Paging for home screen
-* Frontend not so reactive
+
+* review delete
+* review with star ranking -- added to DB but not applied
+* item delete
+* change save directory to absolute path, not project-relative path
